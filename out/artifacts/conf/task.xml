@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--回复任务ID，通过URL来取-->
+<!--https://bbs.3dmgame.com/home.php?mod=task&do=draw&id=128为128-->
+
+<Task>
+  <id>128</id>
+  <id>96</id>
+  <id>110</id>
+  <id>68</id>
+  <id>72</id>
+</Task>

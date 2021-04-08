@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Params>
+  <issign>20210408</issign>
+  <!--签到日期-->
+
+  <needReplayPages>flase</needReplayPages>
+  <!--是否回复版面帖子-->
+
+</Params>
