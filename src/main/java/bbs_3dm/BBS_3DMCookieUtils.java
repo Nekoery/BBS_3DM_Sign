@@ -17,17 +17,17 @@ import java.util.Map;
 import java.util.Set;
 
 public class BBS_3DMCookieUtils {
-    Logger logger = LogManager.getLogger(BBS_3DMCookieUtils.class);
+    final static Logger logger = LogManager.getLogger(BBS_3DMCookieUtils.class);
     public static void writeCookieToFile(final WebDriver driver){
         try{
             WebDriver.Options manage = driver.manage();
             while (true){
                 Thread.sleep(1000 * 5);
                 if(manage.getCookieNamed("uchome_2132_auth") == null){
-                    System.out.println("未检测到Cookie");
+                    logger.error("未检测到Cookie");
                     continue;
                 }else {
-                    System.out.println("检测到Cookie");
+                    logger.info("检测到Cookie");
                     Document doc = DocumentHelper.createDocument();
                     Element cookie = doc.addElement("Cookie");
                     Set<Cookie> cookies = manage.getCookies();
@@ -54,19 +54,19 @@ public class BBS_3DMCookieUtils {
 
     public static Boolean setCookieIfExist(WebDriver driver){
         try{
-            System.out.println("检测Cookie中");
+            logger.info("检测Cookie中");
             Map<String,String> resultMap = XmlUtils.getFileToMap("../conf/cookie.xml");
             if(resultMap == null || resultMap.isEmpty()){
                 return false;
             }
             WebDriver.Options manage = driver.manage();
             manage.deleteAllCookies();
-            System.out.println("---------------------Cookie---------------------");
+            logger.info("---------------------Cookie---------------------");
             Iterator<Map.Entry<String,String>> nodes = resultMap.entrySet().iterator();
             while (nodes.hasNext()){
                 Map.Entry<String,String> n =  nodes.next();
                 Cookie cookie = new Cookie(n.getKey(),n.getValue());
-                System.out.println(n.getKey()+" : " +n.getValue());
+                logger.info(n.getKey()+" : " +n.getValue());
                 manage.addCookie(cookie);
             }
             driver.navigate().refresh();
@@ -75,5 +75,14 @@ public class BBS_3DMCookieUtils {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public static Boolean isCookieExit(){
+        logger.info("检测Cookie中");
+        Map<String,String> resultMap = XmlUtils.getFileToMap("../conf/cookie.xml");
+        if(resultMap == null || resultMap.isEmpty()){
+            return false;
+        }
+        return true;
     }
 }

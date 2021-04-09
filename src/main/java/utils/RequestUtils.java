@@ -1,11 +1,15 @@
 package utils;
 
+import bbs_3dm.BBS_3DMCookieUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RequestUtils {
+    final static Logger logger = LogManager.getLogger(RequestUtils.class);
     public static void request(final String url,final WebDriver driver, final int timeDelay){
         List<String> list = new ArrayList<String>();
         list.add(url);
@@ -31,7 +35,7 @@ public class RequestUtils {
         try {
             for(String i:id){
                 Thread.sleep(timeDelay * 1000);
-                System.out.println(des +" 执行URL:" + baseUrl + i);
+                logger.info(des +" 执行URL:" + baseUrl + i);
                 driver.get(baseUrl + i);
             }
         } catch (InterruptedException e) {

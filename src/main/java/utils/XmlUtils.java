@@ -90,6 +90,12 @@ public class XmlUtils {
         }
     }
 
+    /**
+     * 更新或添加一层节点
+     * @param filename
+     * @param key
+     * @param value
+     */
     public static void update(String filename,String key,String value){
         try{
             File file = new File(filename);
@@ -113,6 +119,12 @@ public class XmlUtils {
         }
     }
 
+    /**
+     * 获取一层节点text
+     * @param filename
+     * @param key
+     * @return
+     */
     public static String getNodeValue(String filename,String key){
         try{
             File file = new File(filename);

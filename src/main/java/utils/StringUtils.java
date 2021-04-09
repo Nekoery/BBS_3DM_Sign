@@ -1,5 +1,7 @@
 package utils;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +12,7 @@ import java.util.*;
 import static utils.TimeUtils.*;
 
 public class StringUtils {
-
+    final static Logger logger = LogManager.getLogger(StringUtils.class);
     public static String getReplyRandomString(WebDriver webDriver){
         Random random=new Random();
         int type=random.nextInt(50);
@@ -24,7 +26,7 @@ public class StringUtils {
         }else {
             retrunString = getStringTitle(webDriver);
         }
-        System.out.println("回复内容为:" + retrunString);
+        logger.info("回复内容为:" + retrunString);
         return retrunString;
     }
 

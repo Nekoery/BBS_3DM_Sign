@@ -1,5 +1,8 @@
 package utils;
 
+import bbs_3dm.BBS_3DMCookieUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,13 +13,13 @@ import java.util.List;
 import java.util.Map;
 
 public class ReplyUtils {
-
+    final static Logger logger = LogManager.getLogger(ReplyUtils.class);
     public static Boolean replayByUrl(String url, WebDriver driver,int times){
         try{
             driver.get(url);
-            System.out.println("-------------------------------------------------");
-            System.out.println("回复主题URL:" + url);
-            System.out.println("回复主题标题:" + StringUtils.getStringTitle(driver));
+            logger.info("-------------------------------------------------");
+            logger.info("回复主题URL:" + url);
+            logger.info("回复主题标题:" + StringUtils.getStringTitle(driver));
             Thread.sleep(2000);
             for(int i = 0 ; i < times ; i++){
                 WebElement text = driver.findElement(By.id("fastpostmessage"));
@@ -46,7 +49,7 @@ public class ReplyUtils {
      * @return
      */
     public static Boolean replayByPage(WebDriver driver,String pageUrl,int count){
-        System.out.println("---------------通过版面回复主题---------------");
+        logger.info("---------------通过版面回复主题---------------");
         driver.get(pageUrl);
         List<String> urls = new ArrayList<String>();
         List<WebElement> webRootElements =ElemetUtils.getElementByTagName(driver,"tbody");
@@ -56,7 +59,7 @@ public class ReplyUtils {
                 if(w1.getAttribute("title").equals("新窗口打开") ||
                         w1.getAttribute("title").equals("有新回复 - 新窗口打开")){
                     urls.add(w1.getAttribute("href"));
-                    System.out.println("版面主题URL"+w1.getAttribute("href"));
+                    logger.info("版面主题URL"+w1.getAttribute("href"));
                 }
             }
         }
@@ -74,10 +77,10 @@ public class ReplyUtils {
      * @return
      */
     public static Boolean replayByPages(WebDriver driver,String fileUrl){
-        System.out.println("---------------通过多个版面回复主题---------------");
+        logger.info("---------------通过多个版面回复主题---------------");
         Map pageMap =  XmlUtils.getFileToMap(fileUrl);
         if(pageMap == null || pageMap.isEmpty()){
-            System.out.println("版面为空");
+            logger.info("版面为空");
             return false;
         }
         Iterator<Map.Entry<String,String>> iterator = pageMap.entrySet().iterator();
@@ -85,7 +88,7 @@ public class ReplyUtils {
         while (iterator.hasNext()){
             Map.Entry<String,String> p = iterator.next();
             String url ="https://bbs.3dmgame.com/" + p.getKey();
-            System.out.println("版面链接" + url);
+            logger.info("版面链接" + url);
             driver.get(url);
             List<WebElement> webRootElements =ElemetUtils.getElementByTagName(driver,"tbody");
             for (WebElement w : webRootElements){
@@ -94,16 +97,16 @@ public class ReplyUtils {
                     if(w1.getAttribute("title").equals("新窗口打开") ||
                             w1.getAttribute("title").equals("有新回复 - 新窗口打开")){
                         urls.add(w1.getAttribute("href"));
-                        System.out.println("版面主题URL"+w1.getAttribute("href"));
+                        logger.info("版面主题URL"+w1.getAttribute("href"));
                     }
                 }
             }
         }
 //        int max = Integer.valueOf(p.getValue()) > urls.size() ? urls.size() : Integer.valueOf(p.getValue());
-        System.out.println("需要回复版面主题数量:" + urls.size());
+        logger.info("需要回复版面主题数量:" + urls.size());
         for(int i = 0 ; i <urls.size() ; i++){
-
-            System.out.println("已回复主题数量: + "+ i + "....................................................");
+            logger.info("");
+            logger.info("已回复主题数量: + "+ i + "....................................................");
             replayByUrl(urls.get(i),driver,1);
         }
         return true;

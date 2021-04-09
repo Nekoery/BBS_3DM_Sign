@@ -24,4 +24,13 @@ public class ElemetUtils {
             return null;
         }
     }
+
+//    public static List<WebElement> getElementByClass(WebElement element,String tagName){
+//        try{
+//            return element.findElements(By.ByClassName(tagName));
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 }
