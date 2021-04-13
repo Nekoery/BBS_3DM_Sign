@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Params>
+  <issign>20210409</issign>
+  <!--签到日期-->
+
+  <needReplayPages>false</needReplayPages>
+  <!--是否回复版面帖子-->
+  
+  <isExit>false</isExit>
+  <!--是否通过配置文件退出应用-->
+</Params>
